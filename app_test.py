@@ -83,6 +83,7 @@ def getData():
         
         # Return prediction
         return jsonify({"predicted_price": float(prediction[0])}), 200
+        
 
     except Exception as e:
         print("Error:", e)

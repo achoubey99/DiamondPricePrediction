@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diamond Price Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="range"] {
+            width: 100%;
+        }
+        .slider-value {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        function updateSliderValue(sliderId, displayId) {
+            const slider = document.getElementById(sliderId);
+            const display = document.getElementById(displayId);
+            display.textContent = slider.value;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Diamond Characteristics Form</h1>
+        <form action="http://127.0.0.1:5000/getData" method="POST">
+            <!-- Carat Slider -->
+            <div class="form-group">
+                <label for="carat">Carat (0.2 - 5.01):</label>
+                <input type="range" id="carat" name="carat" min="0.2" max="5.01" step="0.01" value="0.2" 
+                    oninput="updateSliderValue('carat', 'caratValue')">
+                <span id="caratValue" class="slider-value">0.2</span>
+            </div>
+
+            <!-- Depth Slider -->
+            <div class="form-group">
+                <label for="depth">Depth (43 - 79):</label>
+                <input type="range" id="depth" name="depth" min="43" max="79" step="0.01" value="43" 
+                    oninput="updateSliderValue('depth', 'depthValue')">
+                <span id="depthValue" class="slider-value">43</span>
+            </div>
+
+            <!-- Table Slider -->
+            <div class="form-group">
+                <label for="table">Table (43 - 95):</label>
+                <input type="range" id="table" name="table" min="43" max="95" step="0.01" value="43" 
+                    oninput="updateSliderValue('table', 'tableValue')">
+                <span id="tableValue" class="slider-value">43</span>
+            </div>
+
+            <!-- Cut Dropdown -->
+            <div class="form-group">
+                <label for="cut">Cut:</label>
+                <select id="cut" name="cut">
+                    <option value="Fair">Fair</option>
+                    <option value="Good">Good</option>
+                    <option value="Very Good">Very Good</option>
+                    <option value="Premium">Premium</option>
+                    <option value="Ideal">Ideal</option>
+                </select>
+            </div>
+
+            <!-- Color Slider -->
+            <div class="form-group">
+                <label for="color">Color:</label>
+                <select id="color" name="color">
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="G">G</option>
+                    <option value="H">H</option>
+                    <option value="I">I</option>
+                    <option value="J">J</option>
+                </select>
+            </div>
+
+            <!-- Clarity Slider -->
+            <div class="form-group">
+                <label for="clarity">Clarity:</label>
+                <select id="clarity" name="clarity">
+                    <option value="SI2">SI2</option>
+                    <option value="SI1">SI1</option>
+                    <option value="VS1">VS1</option>
+                    <option value="VS2">VS2</option>
+                    <option value="VVS2">VVS2</option>
+                    <option value="VVS1">VVS1</option>
+                    <option value="I1">H</option>
+                    <option value="IF">IF</option>
+                </select>
+            </div>
+
+            <!-- X Length -->
+            <div class="form-group">
+                <label for="x">X in mm (0 - 10.74):</label>
+                <input type="range" id="x" name="x" min="0" max="10.74" step="0.01" value="0" 
+                    oninput="updateSliderValue('x', 'xValue')">
+                <span id="xValue" class="slider-value">0</span>
+            </div>
+
+            <!-- Y Width -->
+            <div class="form-group">
+                <label for="y">Y in mm (0 - 58.9):</label>
+                <input type="range" id="y" name="y" min="0" max="58.9" step="0.1" value="0" 
+                    oninput="updateSliderValue('y', 'yValue')">
+                <span id="yValue" class="slider-value">0</span>
+            </div>
+
+            <!-- Z Depth -->
+            <div class="form-group">
+                <label for="z">Z in mm (0 - 31.8):</label>
+                <input type="range" id="z" name="z" min="0" max="31.8" step="0.1" value="0" 
+                    oninput="updateSliderValue('z', 'zValue')">
+                <span id="zValue" class="slider-value">0</span>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
