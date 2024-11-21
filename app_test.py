@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, jsonify
 import pandas as pd
 import numpy as np
 import pickle
@@ -6,17 +6,15 @@ import pickle
 app = Flask(__name__)
 
 # Load the pre-trained encoders and model
-with open('model.pkl', 'rb') as file:
+with open('grid_search_model.pkl', 'rb') as file:
     model = pickle.load(file)
-
-with open('scaler.pkl','rb') as file:
-    scaler = pickle.load(file)
-
-with open('ordinal_encoder.pkl', 'rb') as file:
-    ordinal_encoder = pickle.load(file)
 
 with open("column_transformer.pkl", "rb") as f:
     loaded_transformed_col = pickle.load(f)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 
 @app.route('/getData', methods=['POST'])
@@ -67,14 +65,10 @@ def getData():
             raise ValueError("Input data must have 9 features.", input_df)
         print(input_df)
         processed_input = loaded_transformed_col.transform(input_df)
-        # processed_input = pd.DataFrame(
-        #     data=np.hstack([categorical_transformed, numerical_transformed]),
-        #     columns=obj_cols + num_cols
-        # )
 
         print('processing done')
 
-        # Make prediction
+        # Making prediction prediction
         prediction = model.predict(processed_input)
         if prediction.size == 0:
             raise ValueError("Prediction is empty")
@@ -82,7 +76,8 @@ def getData():
         print('prediction done')
         
         # Return prediction
-        return jsonify({"predicted_price": float(prediction[0])}), 200
+        result = "Predicted Price " + "= " + "$" + f"{round(float(prediction[0]),2)}"
+        return result 
         
 
     except Exception as e:
